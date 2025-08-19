@@ -19,7 +19,7 @@ use tracing::{info, warn};
 
 /// The minimum and maximum protocol versions supported by this build.
 const MIN_PROTOCOL_VERSION: u64 = 1;
-const MAX_PROTOCOL_VERSION: u64 = 92;
+const MAX_PROTOCOL_VERSION: u64 = 93;
 
 // Record history of protocol version allocations here:
 //
@@ -3928,6 +3928,9 @@ impl ProtocolConfig {
                     cfg.feature_flags.per_command_shared_object_transfer_rules = true;
                 }
                 92 => {
+                    cfg.feature_flags.per_command_shared_object_transfer_rules = false;
+                }
+                93 => {
                     cfg.feature_flags
                         .consensus_checkpoint_signature_key_includes_digest = true;
                 }
@@ -3991,7 +3994,7 @@ impl ProtocolConfig {
             max_back_edges_per_function,
             max_back_edges_per_module,
             max_basic_blocks_in_script: None,
-            max_idenfitier_len: self.max_move_identifier_len_as_option(), // Before protocol version 9, there was no limit
+            max_identifier_len: self.max_move_identifier_len_as_option(), // Before protocol version 9, there was no limit
             disallow_self_identifier: self.feature_flags.disallow_self_identifier,
             allow_receiving_object_id: self.allow_receiving_object_id(),
             reject_mutable_random_on_entry_functions: self
